@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You are accused!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #ff66b2;
+            color: white;
+            border-radius: 8px;
+        }
+        .button:hover {
+            background-color: #ff3385;
+        }
+        #confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+        #final-msg {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff66b2;
+        }
+
+        /* Confetti fall animation */
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff66b2;
+            animation: fall linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- First Page: "You are accused!" -->
+    <div id="page1">
+        <h1>You are accused!</h1>
+        <button class="button" onclick="triggerConfetti()">Of what?</button>
+    </div>
+
+    <!-- Confetti Section -->
+    <div id="confetti" class="hidden"></div>
+
+    <!-- Second Page: Accused under Sec 143 -->
+    <div id="page2" class="hidden">
+        <h2>Accused under Sec 143 of INDIAN LOVE CODE</h2>
+        <button class="button" onclick="showPunishment()">What is my punishment?</button>
+    </div>
+
+    <!-- Third Page: Spending 31st March with the victim -->
+    <div id="page3" class="hidden">
+        <h2>Spending 31st March with the victim</h2>
+        <button class="button" onclick="showFinalOptions()">What happens next?</button>
+    </div>
+
+    <!-- Fourth Page: Final options -->
+    <div id="page4" class="hidden">
+        <h2>Will you accept your punishment?</h2>
+        <button class="button" onclick="acceptPunishment()">Yes</button>
+        <button class="button" onclick="acceptPunishment()">100% definitely big big YES</button>
+    </div>
+
+    <script>
+        // This function triggers the confetti and shows the next page after clicking "Of what?"
+        function triggerConfetti() {
+            // Show confetti animation
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('confetti').style.opacity = 1;
+            document.getElementById('confetti').classList.remove('hidden');
+
+            // Trigger confetti animation (simple effect)
+            setTimeout(() => {
+                document.getElementById('confetti').style.opacity = 0;
+                document.getElementById('page2').classList.remove('hidden');
+            }, 3000); // Wait for 3 seconds before moving to the next page
+        }
+
+        // This function shows the punishment slide
+        function showPunishment() {
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.remove('hidden');
+        }
+
+        // This function shows the final options
+        function showFinalOptions() {
+            document.getElementById('page3').classList.add('hidden');
+            document.getElementById('page4').classList.remove('hidden');
+        }
+
+        // This function handles the acceptance of punishment
+        function acceptPunishment() {
+            alert("You have accepted your punishment! 🎉");
+        }
+
+        // Optional: Add a simple confetti animation using JavaScript
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#ff66b2', '#ff3385', '#ff99cc', '#ff4d94'];
+
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `fall ${Math.random() * 2 + 3}s linear infinite`;
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.style.left = Math.random() * 100 + '%';
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Initialize confetti when the page loads
+        createConfetti();
+    </script>
+</body>
+</html>
